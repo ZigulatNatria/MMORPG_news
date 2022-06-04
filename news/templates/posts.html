@@ -1,0 +1,16 @@
+{% block content %}
+{% for post in posts %}
+     <tr>
+        <td>
+            <a> {{ post.title }}</a>
+        </td>
+         <td>
+             {{ post.category }}
+         </td>
+         <td>
+
+             <p><a> {{ post.content|safe }}</a></p>
+         </td>
+     </tr>
+{% endfor %}
+{% endblock content %}
