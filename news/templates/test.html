@@ -4,25 +4,40 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+
     <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
     <script>
-      tinymce.init({
-        selector: '#mytextarea'
-      });
+        tinymce.init({
+          selector: 'textarea',  // change this value according to your HTML
+          width: 900,
+          height: 500,
+          plugins: 'image',
+          menubar: 'insert | file edit view',
+          toolbar: 'image | undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | outdent indent',
+          image_uploadtab: false
+
+
+});
+
+
     </script>
 
   </head>
 
   <body>
-  <h1>TinyMCE Quick Start Guide</h1>
+  <h1> Для загрузки изображения прикрепите URL изображения </h1>
     <form method="post">
       {% csrf_token %}
-      {{form.media}}
+      {{form.as_p}}
+
       <input type="submit" value="Добавить">
-      <textarea id="mytextarea">{{ form.media }}</textarea>
+
+
     </form>
+
   </body>
 </html>
+
 
 

@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Post
 from .forms import PostForm
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, DetailView
 from django.http import HttpResponse, HttpResponseRedirect
 
 class PostListView(ListView):
@@ -15,6 +15,14 @@ class PostAddView(CreateView):
     model = Post
     template_name = 'test.html'
     form_class = PostForm
+    success_url = '/'
+
+
+class PostDetail(DetailView):
+    model = Post
+    template_name = 'post.html'
+    context_object_name = 'post'
+    queryset = Post.objects.all()
 
 
 

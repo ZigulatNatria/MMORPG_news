@@ -2,7 +2,7 @@
 {% for post in posts %}
      <tr>
         <td>
-            <a> {{ post.title }}</a>
+            <a href="{% url 'post' post.id %}">{{ post.title }}</a>
         </td>
          <td>
              {{ post.category }}
