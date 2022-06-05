@@ -24,5 +24,9 @@ urlpatterns = [
     path('grappelli/', include('grappelli.urls')),  # оба пути надо прописывать до путей admin
     path('admin/', admin.site.urls),
     path('tinymce/', include('tinymce.urls')),
-    path('portal/', include('portal.urls'))
+    path('portal/', include('portal.urls')),
+    # пути для регистрации
+    path('', include('protect.urls')),
+    path('sign/', include('sign.urls')),
+    # path('accounts/', include('allauth.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # необходимо для работы с медиа
