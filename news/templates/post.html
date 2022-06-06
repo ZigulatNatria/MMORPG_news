@@ -5,4 +5,16 @@
 <p></p>
 <p>{{ post.content | safe }}</p>
 <p></p>
+
+{% for item in post.comments_post.all %}
+
+    {{ item.author }} <br>
+    {{ item.text }} <br>
+
+{% endfor %}
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Добавить комментарий">
+</form>
 {% endblock content %}
