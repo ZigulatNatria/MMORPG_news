@@ -17,7 +17,7 @@ class PostAddView(CreateView):
     model = Post
     template_name = 'test.html'
     form_class = PostForm
-    success_url = '/'
+    success_url = 'posts/'
 
 
 class PostDetail(DetailView, FormMixin):
