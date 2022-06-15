@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 from pathlib import Path
 import os
+from .key import email, short_email, password
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -97,7 +98,7 @@ AUTHENTICATION_BACKENDS = [
 WSGI_APPLICATION = 'news.wsgi.application'
 
 # Настройки почты
-LOGIN_URL = 'sign/login/'
+LOGIN_URL = '/accounts/login/' #в таком виде иначе АЙ
 LOGIN_REDIRECT_URL = '/'
 
 ACCOUNT_EMAIL_REQUIRED = True
@@ -165,14 +166,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.yandex.ru'  # адрес сервера Яндекс-почты для всех один и тот же
 EMAIL_PORT = 465  # порт smtp сервера тоже одинаковый
-EMAIL_HOST_USER = 'vachrameev.oleg'  # ваше имя пользователя, например, если ваша почта user@yandex.ru, то сюда надо писать user, иными словами, это всё то что идёт до собаки
-EMAIL_HOST_PASSWORD = 'kogotysuslika159'  # пароль от почты
+EMAIL_HOST_USER = short_email  # ваше имя пользователя, например, если ваша почта user@yandex.ru, то сюда надо писать user, иными словами, это всё то что идёт до собаки
+EMAIL_HOST_PASSWORD = password  # пароль от почты
 EMAIL_USE_SSL = True  # Яндекс использует ssl, подробнее о том, что это, почитайте в дополнительных источниках, но включать его здесь обязательно
 #Добавлено в D6
-DEFAULT_FROM_EMAIL = 'kogotysuslika159@yandex.ru'
-# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER + '@yandex.ru' # если вы используете Яндекс, то не
+# DEFAULT_FROM_EMAIL =
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER + '@yandex.ru' # если вы используете Яндекс, то не
 
-# SERVER_EMAIL = 'vachrameev.oleg@yandex.ru'  # это будет у нас вместо аргумента FROM в массовой рассылке
+# SERVER_EMAIL =   # это будет у нас вместо аргумента FROM в массовой рассылке
 # DEFAULT_FROM_EMAIL = SERVER_EMAIL
 
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' #в режиме отладки пилит сообщение вместо почты в консоль

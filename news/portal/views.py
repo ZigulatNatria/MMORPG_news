@@ -5,6 +5,7 @@ from django.views.generic import CreateView, ListView, DetailView
 from django.views.generic.edit import FormMixin
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 # для проверки
 from .forms import ContactForm
 from django.core.mail import send_mail, BadHeaderError
@@ -18,7 +19,7 @@ class PostListView(ListView):
     queryset = Post.objects.all()
 
 
-class PostAddView(CreateView):
+class PostAddView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'test.html'
     form_class = PostForm
