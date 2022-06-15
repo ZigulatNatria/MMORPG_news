@@ -28,5 +28,5 @@ urlpatterns = [
     # пути для регистрации
     path('', include('protect.urls')),
     path('sign/', include('sign.urls')),
-    # path('accounts/', include('allauth.urls'))
+    path('accounts/', include('allauth.urls'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # необходимо для работы с медиа

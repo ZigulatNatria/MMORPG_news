@@ -5,6 +5,11 @@ from django.views.generic import CreateView, ListView, DetailView
 from django.views.generic.edit import FormMixin
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
+# для проверки
+from .forms import ContactForm
+from django.core.mail import send_mail, BadHeaderError
+
+
 
 class PostListView(ListView):
     model = Post
@@ -45,4 +50,25 @@ class PostDetail(DetailView, FormMixin):
         self.object.save()
         return super().form_valid(form)
 
+# для проверки
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            subject = "Пробное сообщение"
+            body = {
+                'name': form.cleaned_data['name'],
+                'telephone': form.cleaned_data['telephone'],
+                'message': form.cleaned_data['message'],
+            }
+            message = "\n".join(body.values()) #при переписывании на цифры в формах вылетает ошибка типов
+            try:
+                send_mail(subject, message,
+                          'vachrameev.oleg@yandex.ru',
+                          ['vachrameev.oleg@yandex.ru'])
+            except BadHeaderError:
+                return HttpResponse('Найден некорректный заголовок')
+            return redirect("/portal/add")
 
+    form = ContactForm()
+    return render(request, "contact.html", {'form': form})
