@@ -6,6 +6,8 @@ from django.views.generic.edit import FormMixin
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 # для проверки
 from .forms import ContactForm
 from django.core.mail import send_mail, BadHeaderError
@@ -37,6 +39,7 @@ class PostDetail(DetailView, FormMixin):
     def get_success_url(self):
         return reverse_lazy('post', kwargs={'pk': self.get_object().id})
 
+    @method_decorator(login_required)     # Разрешает добавлять комментарии только зарегистрированным пользователям
     def post(self, request, *args, **kwargs):
         form = self.get_form()
         if form.is_valid():
