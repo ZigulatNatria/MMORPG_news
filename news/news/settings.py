@@ -45,7 +45,7 @@ INSTALLED_APPS = [
     # ... include the providers you want to enable:
     'allauth.socialaccount.providers.google',
     'tinymce',
-    'portal',
+    'portal.apps.PortalConfig',
     'sign',       #для регистрации
     'protect',    #для разграничения прав доступа
     'allauth',

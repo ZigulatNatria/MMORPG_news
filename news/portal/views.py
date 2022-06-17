@@ -27,6 +27,14 @@ class PostAddView(LoginRequiredMixin, CreateView):
     form_class = PostForm
     success_url = 'posts/'
 
+    def post(self, request):
+        title = request.POST['title']
+        content = request.POST['content']
+        post = Post.objects.create(title=title, content=content)
+        post.save()
+
+
+
 
 class PostDetail(DetailView, FormMixin):
     model = Post
