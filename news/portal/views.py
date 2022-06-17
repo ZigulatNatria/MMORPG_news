@@ -25,13 +25,16 @@ class PostAddView(LoginRequiredMixin, CreateView):
     model = Post
     template_name = 'test.html'
     form_class = PostForm
-    success_url = 'posts/'
+    # success_url = 'posts/'
 
     def post(self, request):
+        category = request.POST['category']
         title = request.POST['title']
         content = request.POST['content']
-        post = Post.objects.create(title=title, content=content)
+        post = Post.objects.create(category=category, title=title, content=content)
         post.save()
+
+        return redirect('posts/')
 
 
 
