@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Post
-from .forms import PostForm, CommentForm
-from django.views.generic import CreateView, ListView, DetailView
+from .forms import PostForm, CommentForm, CommentStatusForm
+from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from django.views.generic.edit import FormMixin
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
@@ -31,13 +31,36 @@ class PostAddView(LoginRequiredMixin, CreateView):
         category = request.POST['category']
         title = request.POST['title']
         content = request.POST['content']
-        post = Post.objects.create(category=category, title=title, content=content)
+        author = request.user
+        post = Post.objects.create(category=category, title=title, content=content, author=author)
         post.save()
 
         return redirect('posts/')
 
 
+class PostUdateView(LoginRequiredMixin, UpdateView):
+    permission_required = ('news.change_post')
+    template_name = 'test.html'
+    form_class = PostForm
 
+    def get_object(self, **kwargs):
+        id = self.kwargs.get('pk')
+        return Post.objects.get(pk=id)
+
+
+class PostDeleteView(LoginRequiredMixin, DeleteView):
+    permission_required = ('news.delete_post')
+    template_name = 'delete.html'
+    queryset = Post.objects.all()
+    success_url = '/portal/posts/'
+
+
+
+def post(request):
+    context = {
+        'posts': Post.objects.filter(author=request.user)
+    }
+    return render(request, 'protect/index.html', context)
 
 class PostDetail(DetailView, FormMixin):
     model = Post
@@ -64,6 +87,23 @@ class PostDetail(DetailView, FormMixin):
         self.object.author = self.request.user
         self.object.save()
         return super().form_valid(form)
+
+
+class CommentUdateView(UpdateView):
+    permission_required = ('news.change_post')
+    template_name = 'post.html'
+    form_class = CommentStatusForm
+
+    def get_object(self, **kwargs):
+        id = self.kwargs.get('pk')
+        return Post.objects.get(pk=id)
+
+
+# def update_comment_status(request, pk, type):
+#     return HttpResponse('1')
+
+
+
 
 # для проверки
 def contact(request):

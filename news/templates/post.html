@@ -7,15 +7,29 @@
 <p>{{ post.content | safe }}</p>
 <p></p>
 
+<a href="{% url 'post_create' post.id %}"><u>Редактировать</u></a><br>
+<a href="{% url 'post_delete' post.id %}"><u> Удалить </u></a>
+
+<br>
+<br>
 {% for item in post.comments_post.all %}
 
-    {{ item.author }} <br>
-    {{ item.text }} <br>
+Автор комментария    {{ item.author }} <br>
+                     {{ item.text }} <br>
+Статус комментария   {{ item.status }}
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="подтвердить"></form>
+<br>
+<br>
 
 {% endfor %}
-<form method="post">
+
+<!--<form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Добавить комментарий">
 </form>
-{% endblock content %}
+{% endblock content %} -->
+

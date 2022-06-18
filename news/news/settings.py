@@ -64,6 +64,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'portal.middleware.CurrentRequestMiddlewareUser',    #для получения пользователя в комментариях
 ]
 
 ROOT_URLCONF = 'news.urls'
