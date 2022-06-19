@@ -3,14 +3,17 @@
 {% for post in posts %}
      <tr>
         <td>
-            <a href="{% url 'post' post.id %}">{{ post.title }}</a>
+            <b><h1><a href="{% url 'post' post.id %}">{{ post.title }}</a></h1></b>
         </td>
          <td>
              {{ post.category }}
          </td>
          <td>
-
+             {{ post.author }}
+         </td>
+         <td>
              <p><a> {{ post.content|safe }}</a></p>
+             <hr>
          </td>
      </tr>
 {% endfor %}

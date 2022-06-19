@@ -5,7 +5,12 @@
 <p>{{ post.category }}</p>
 <p></p>
 <p>{{ post.content | safe }}</p>
+<hr>
 <p></p>
+
+<a href="{% url 'post_create' post.id %}"><u>Редактировать</u></a><br>
+<a href="{% url 'post_delete' post.id %}"><u> Удалить </u></a>
+
 <br>
 <br>
 <hr>
@@ -16,7 +21,6 @@
 Автор:   <b>{{ item.author }}</b> <br>
             {{ item.text }} <br>
 <hr>
-
 
 
 <br>
