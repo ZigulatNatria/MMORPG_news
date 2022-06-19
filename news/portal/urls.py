@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import PostAddView, PostListView, PostDetail, post, PostUdateView, PostDeleteView, CommentUdateView, \
+from .views import PostAddView, PostListView, PostDetail, post, PostUdateView, PostDeleteView, CommentDetail, \
     contact #для проверки (удалить)
 
 urlpatterns = [
@@ -9,7 +9,7 @@ urlpatterns = [
     path('user', post, name='post'),
     path('<int:pk>/edit', PostUdateView.as_view(), name='post_create'),
     path('<int:pk>/delete', PostDeleteView.as_view(), name='post_delete'),
-    path('<int:pk>/comment', CommentUdateView.as_view(), name='comment_update'),
+    path('comment/<int:pk>', CommentDetail.as_view(), name='comment'),
     path('cont', contact, name='contact'), #для проверки (удалить)
 
     #ajax

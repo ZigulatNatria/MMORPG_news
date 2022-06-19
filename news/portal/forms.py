@@ -11,11 +11,7 @@ class PostForm(ModelForm):
         model = Post
         fields = '__all__'
 
-class CommentStatusForm(forms.ModelForm):
 
-    class Meta:
-        model = Comments
-        fields = ('status',)
 
 class CommentForm(forms.ModelForm):
     class Meta:

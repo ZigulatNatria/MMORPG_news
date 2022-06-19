@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Post
-from .forms import PostForm, CommentForm, CommentStatusForm
+from .models import Post, Comments
+from .forms import PostForm, CommentForm
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, DeleteView
 from django.views.generic.edit import FormMixin
 from django.http import HttpResponse, HttpResponseRedirect
@@ -89,14 +89,31 @@ class PostDetail(DetailView, FormMixin):
         return super().form_valid(form)
 
 
-class CommentUdateView(UpdateView):
-    permission_required = ('news.change_post')
-    template_name = 'post.html'
-    form_class = CommentStatusForm
+class CommentDetail(DetailView):
+    model = Comments
 
-    def get_object(self, **kwargs):
-        id = self.kwargs.get('pk')
-        return Post.objects.get(pk=id)
+    template_name = 'change_status.html'
+
+    context_object_name = 'comment'
+
+
+
+
+    def post(self, request, *args, **kwargs):
+        # Получаем из POST-запроса статус и первичный ключ комментария
+        status = request.POST['status']
+        cpk = request.POST['comment_pk']
+
+        # Получаем из базы этот объект и изменяем поле в соответствии с указанным статусом
+        comment = Comments.objects.get(pk = cpk)
+        if status == 'True':
+            comment.status = True
+        else:
+            comment.status = False
+
+        comment.save()
+
+        return super().get(request, *args, **kwargs)
 
 
 # def update_comment_status(request, pk, type):

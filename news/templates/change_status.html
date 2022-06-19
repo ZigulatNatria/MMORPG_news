@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Comment</title>
+    </head>
+    <body>
+        <h1>Комментарий</h1>
+        <p>Текст: {{ comment.text }}</p>
+        <p>Статус: {{ comment.status }}</p>
+
+        <div>
+            <form method="POST">
+                {% csrf_token %}
+                <label for="comment_pk">id комментария</label>
+                <input name="comment_pk" type="text" value="{{comment.pk}}">
+
+                <select name="status" size="1">
+                      <option value="True">Разрешить</option>
+                      <option value="False">Запретить</option>
+                </select> 
+                <input type="submit" value="Изменить статус">
+            </form>
+        </div>
+    </body>
+</html>

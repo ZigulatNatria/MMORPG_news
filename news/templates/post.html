@@ -16,20 +16,18 @@
 
 Автор комментария    {{ item.author }} <br>
                      {{ item.text }} <br>
-Статус комментария   {{ item.status }}
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="подтвердить"></form>
+Статус комментария   <a href="{% url 'comment' comments.id %}">{{ item.status }}</a>
+
+
 <br>
 <br>
 
 {% endfor %}
 
-<!--<form method="post">
+<form method="post">
     {% csrf_token %}
     {{ form.as_p }}
     <input type="submit" value="Добавить комментарий">
 </form>
-{% endblock content %} -->
+{% endblock content %}
 
